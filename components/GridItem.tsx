@@ -40,20 +40,19 @@ const GridItem = ({
       <TooltipProvider delay={300}>
         <Tooltip>
           <TooltipTrigger>
-            <Button
-              variant="ghost"
+            <div
+              role="presentation"
               onClick={onClick}
-              disabled={disabled}
               className={cn(
                 "relative h-20 w-full p-0 overflow-hidden rounded-lg border transition-all",
                 "bg-zinc-950 border-zinc-800",
-                "hover:border-yellow-500 hover:opacity-100",
+                "hover:border-emerald-500 hover:opacity-100",
                 // Explicit cursor handling
                 disabled
                   ? "cursor-not-allowed opacity-40"
                   : "cursor-pointer opacity-80",
                 isActive
-                  ? "border-yellow-500 ring-1 ring-yellow-500/50 opacity-100"
+                  ? "border-emerald-500 ring-1 ring-emerald-500/50 opacity-100"
                   : "",
               )}
             >
@@ -62,7 +61,7 @@ const GridItem = ({
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 hover:scale-110"
                 style={{ backgroundImage: `url(${image})` }}
               />
-            </Button>
+            </div>
           </TooltipTrigger>
 
           {/* --- TOOLTIP FIXES --- */}
@@ -70,7 +69,7 @@ const GridItem = ({
             side="bottom"
             sideOffset={8} // Pushes tooltip slightly away to avoid overlap
             className={cn(
-              "bg-zinc-950 border border-zinc-800 text-zinc-200", // Dark bg & Subtle border
+              "bg-zinc-950 border border-zinc-800 text-zinc-200 flex flex-col items-center justify-center", // Dark bg & Subtle border
               "shadow-xl rounded-lg px-3", // Better shadow & padding
               "max-w-50 wrap-break-word z-50", // Fix long text issue
               "animate-in fade-in-0 zoom-in-95", // Smooth animation
@@ -80,7 +79,7 @@ const GridItem = ({
           >
             <p className="font-bold text-xs text-zinc-100">{label}</p>
             {desc && (
-              <p className="text-[10px] text-zinc-400 mt-1 leading-snug">
+              <p className="text-[10px] text-zinc-400 mt-1 leading-snug text-center">
                 {desc}
               </p>
             )}
@@ -99,10 +98,10 @@ const GridItem = ({
       className={cn(
         "relative flex flex-col items-center justify-center gap-2 p-3 h-20 w-full rounded-lg border transition-all group",
         "bg-zinc-950 border-zinc-800",
-        "hover:border-yellow-500/50 hover:bg-zinc-900",
+        "hover:border--emerald-500 hover:bg-zinc-900",
         // Explicit cursor handling
         disabled ? "cursor-not-allowed opacity-40" : "cursor-pointer",
-        isActive ? "border-yellow-500 bg-zinc-900" : "",
+        isActive ? "border-emerald-500 bg-zinc-900" : "",
       )}
     >
       {Icon && (
@@ -111,8 +110,8 @@ const GridItem = ({
           className={cn(
             "transition-colors",
             isActive
-              ? "text-yellow-500"
-              : "text-zinc-500 group-hover:text-yellow-500",
+              ? "text-emerald-500"
+              : "text-zinc-500 group-hover:text-emerald-500",
           )}
         />
       )}
