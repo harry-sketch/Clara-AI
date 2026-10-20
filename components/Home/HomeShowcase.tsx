@@ -5,7 +5,7 @@ import { Navbar } from "@/components/Header/Navbar";
 import LeftSidebar from "@/components/Sidebar/LeftSidebar";
 import RightSidebar from "@/components/Sidebar/RightSidebar";
 import { Button } from "@/components/ui/button";
-import ChatInput from "../ChatInput";
+import ChatInput from "../Chat/ChatInput";
 
 const HomeShowcase = () => {
   const imageSelected = false;
