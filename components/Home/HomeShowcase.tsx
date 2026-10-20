@@ -5,6 +5,7 @@ import { Navbar } from "@/components/Header/Navbar";
 import LeftSidebar from "@/components/Sidebar/LeftSidebar";
 import RightSidebar from "@/components/Sidebar/RightSidebar";
 import { Button } from "@/components/ui/button";
+import ChatInput from "../ChatInput";
 
 const HomeShowcase = () => {
   const imageSelected = false;
@@ -58,8 +59,7 @@ const HomeShowcase = () => {
           </div>
 
           <div className="shrink-0 border-t border-zinc-800 p-4 lg:p-6 z-40 text-white">
-            {/* <AIPromptInput /> */}
-            Hello
+            <ChatInput />
           </div>
         </main>
 
