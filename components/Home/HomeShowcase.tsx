@@ -20,8 +20,14 @@ const HomeShowcase = () => {
           <div className="flex-1 relative overflow-hidden w-full h-full">
             <div className="w-full h-full flex items-center justify-center p-6 md:p-10">
               {!imageSelected ? (
-                <div className="text-center space-y-6 max-w-sm z-10 ">
-                  <Image src="/logo.webp" width={500} height={500} alt="logo" />
+                <div className="text-center space-y-6 max-w-sm z-10">
+                  <Image
+                    src="/logo.webp"
+                    width={400}
+                    height={200}
+                    alt="logo"
+                    className="object-contain"
+                  />
                   <div>
                     <h3 className="text-2xl font-bold text-zinc-100">
                       Start Creating
@@ -36,7 +42,7 @@ const HomeShowcase = () => {
                   </div>
                   <Button
                     onClick={() => {}}
-                    className="w-full h-11 bg-yellow-500 hover:bg-yellow-400 text-zinc-950 font-bold rounded-xl transition-all hover:scale-[1.02]"
+                    className="w-full h-14 bg-emerald-400 hover:bg-emerald-500 text-zinc-950 text-base cursor-pointer font-bold rounded-xl transition-all hover:scale-[1.02]"
                   >
                     Select Image
                   </Button>
@@ -51,7 +57,7 @@ const HomeShowcase = () => {
             {/* <ImageGenerationLoading /> */}
           </div>
 
-          <div className="shrink-0 bg-zinc-950 border-t border-zinc-800 p-4 lg:p-6 z-40">
+          <div className="shrink-0 border-t border-zinc-800 p-4 lg:p-6 z-40 text-white">
             {/* <AIPromptInput /> */}
             Hello
           </div>

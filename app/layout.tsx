@@ -33,9 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         inter.variable,
       )}
     >
-      <body className="min-h-full flex flex-col bg-linear-to-b from-[#101010] to-[#232325]">
-        {children}
-      </body>
+      <body className="min-h-full flex flex-col bg-[#101010]">{children}</body>
     </html>
   );
 }

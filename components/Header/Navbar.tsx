@@ -63,7 +63,7 @@ export function Navbar() {
           <Button
             variant="default"
             size="sm"
-            className="h-9 bg-rose-600 text-zinc-50 hover:bg-rose-500 font-bold px-2.5 md:px-4 cursor-pointer"
+            className="h-9 bg-emerald-400 hover:bg-emerald-500 text-zinc-950 text font-bold px-2.5 md:px-4 cursor-pointer"
           >
             <span className="hidden md:inline">Export</span>
             <Download size={14} className="md:ml-2" />
