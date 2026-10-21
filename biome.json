@@ -19,14 +19,20 @@
       "tailwindDirectives": true
     }
   },
+
   "linter": {
     "enabled": true,
     "rules": {
+      "performance": {
+        "noImgElement": "off"
+      },
       "a11y": {
-        "noStaticElementInteractions": "off"
+        "noStaticElementInteractions": "off",
+        "useSemanticElements": "off"
       },
       "recommended": true
     },
+
     "domains": {
       "next": "recommended",
       "react": "recommended"

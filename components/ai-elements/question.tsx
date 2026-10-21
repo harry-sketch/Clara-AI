@@ -5,7 +5,6 @@ import type {
   ComponentProps,
   FormEvent,
   HTMLAttributes,
-  MouseEvent,
   ReactNode,
 } from "react";
 
@@ -61,7 +60,7 @@ export type QuestionProps = Omit<
   disabled?: boolean;
   onSubmit?: (
     response: QuestionResponse,
-    event: FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>,
   ) => void | Promise<void>;
   onValueChange?: (value: QuestionValue) => void;
   selectionMode?: SelectionMode;
@@ -73,7 +72,7 @@ const EMPTY_VALUE: QuestionValue = { selectedValues: [], text: "" };
 const getSelectedValues = (
   currentValues: readonly string[],
   optionValue: string,
-  selectionMode: SelectionMode
+  selectionMode: SelectionMode,
 ): readonly string[] => {
   const isSelected = currentValues.includes(optionValue);
 
@@ -109,14 +108,14 @@ export const Question = ({
       }
       onValueChange?.(nextValue);
     },
-    [controlledValue, onValueChange]
+    [controlledValue, onValueChange],
   );
 
   const setText = useCallback(
     (text: string) => {
       setValue({ ...value, text });
     },
-    [setValue, value]
+    [setValue, value],
   );
 
   const toggleValue = useCallback(
@@ -124,11 +123,11 @@ export const Question = ({
       const selectedValues = getSelectedValues(
         value.selectedValues,
         optionValue,
-        selectionMode
+        selectionMode,
       );
       setValue({ ...value, selectedValues });
     },
-    [selectionMode, setValue, value]
+    [selectionMode, setValue, value],
   );
 
   const contextValue = useMemo(
@@ -140,7 +139,7 @@ export const Question = ({
       text: value.text,
       toggleValue,
     }),
-    [disabled, selectionMode, setText, toggleValue, value]
+    [disabled, selectionMode, setText, toggleValue, value],
   );
 
   const handleSubmit = useCallback(
@@ -160,10 +159,10 @@ export const Question = ({
           selectedValues: value.selectedValues,
           text: text.length > 0 ? text : undefined,
         },
-        event
+        event,
       );
     },
-    [disabled, onSubmit, value]
+    [disabled, onSubmit, value],
   );
 
   return (
@@ -171,7 +170,7 @@ export const Question = ({
       <form
         className={cn(
           "space-y-4 rounded-lg border bg-background p-4",
-          className
+          className,
         )}
         onSubmit={handleSubmit}
         {...props}
@@ -236,12 +235,14 @@ export const QuestionOption = ({
   const question = useQuestion();
   const isSelected = question.selectedValues.includes(value);
   const role = question.selectionMode === "single" ? "radio" : "checkbox";
-  const handleClick = useCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback<
+    NonNullable<ComponentProps<typeof Button>["onClick"]>
+  >(
+    (event) => {
       question.toggleValue(value);
       onClick?.(event);
     },
-    [onClick, question, value]
+    [onClick, question, value],
   );
 
   return (
@@ -277,7 +278,7 @@ export const QuestionInput = ({
       question.setText(event.currentTarget.value);
       onChange?.(event);
     },
-    [onChange, question]
+    [onChange, question],
   );
 
   return (

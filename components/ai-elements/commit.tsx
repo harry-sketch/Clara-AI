@@ -37,10 +37,19 @@ export const CommitHeader = ({
   children,
   ...props
 }: CommitHeaderProps) => (
-  <CollapsibleTrigger {...props} render={<div className={cn(
-            "group flex cursor-pointer items-center justify-between gap-4 p-3 text-left transition-colors hover:opacity-80",
-            className
-          )} />}>{children}</CollapsibleTrigger>
+  <CollapsibleTrigger
+    {...props}
+    render={
+      <div
+        className={cn(
+          "group flex cursor-pointer items-center justify-between gap-4 p-3 text-left transition-colors hover:opacity-80",
+          className,
+        )}
+      />
+    }
+  >
+    {children}
+  </CollapsibleTrigger>
 );
 
 export type CommitHashProps = HTMLAttributes<HTMLSpanElement>;
@@ -78,7 +87,7 @@ export const CommitMetadata = ({
   <div
     className={cn(
       "flex items-center gap-2 text-muted-foreground text-xs",
-      className
+      className,
     )}
     {...props}
   >
@@ -146,7 +155,7 @@ const relativeTimeFormat = new Intl.RelativeTimeFormat("en", {
 
 const formatRelativeDate = (date: Date) => {
   const days = Math.round(
-    (date.getTime() - Date.now()) / (1000 * 60 * 60 * 24)
+    (date.getTime() - Date.now()) / (1000 * 60 * 60 * 24),
   );
   return relativeTimeFormat.format(days, "day");
 };
@@ -188,6 +197,7 @@ export const CommitActions = ({
   children,
   ...props
 }: CommitActionsProps) => (
+  // biome-ignore lint/a11y/useSemanticElements: <explanation>
   <div
     className={cn("flex items-center gap-1", className)}
     onClick={handleActionsClick}
@@ -231,7 +241,7 @@ export const CommitCopyButton = ({
         onCopy?.();
         timeoutRef.current = window.setTimeout(
           () => setIsCopied(false),
-          timeout
+          timeout,
         );
       }
     } catch (error) {
@@ -243,7 +253,7 @@ export const CommitCopyButton = ({
     () => () => {
       window.clearTimeout(timeoutRef.current);
     },
-    []
+    [],
   );
 
   const Icon = isCopied ? CheckIcon : CopyIcon;
@@ -295,7 +305,7 @@ export const CommitFile = ({
   <div
     className={cn(
       "flex items-center justify-between gap-2 rounded px-2 py-1 text-sm hover:bg-muted/50",
-      className
+      className,
     )}
     {...props}
   >
@@ -343,7 +353,7 @@ export const CommitFileStatus = ({
     className={cn(
       "font-medium font-mono text-xs",
       fileStatusStyles[status],
-      className
+      className,
     )}
     {...props}
   >
@@ -385,7 +395,7 @@ export const CommitFileChanges = ({
   <div
     className={cn(
       "flex shrink-0 items-center gap-1 font-mono text-xs",
-      className
+      className,
     )}
     {...props}
   >

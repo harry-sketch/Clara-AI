@@ -70,12 +70,12 @@ export const FileTree = ({
       setInternalExpanded(newExpanded);
       onExpandedChange?.(newExpanded);
     },
-    [expandedPaths, onExpandedChange]
+    [expandedPaths, onExpandedChange],
   );
 
   const contextValue = useMemo(
     () => ({ expandedPaths, onSelect, selectedPath, togglePath }),
-    [expandedPaths, onSelect, selectedPath, togglePath]
+    [expandedPaths, onSelect, selectedPath, togglePath],
   );
 
   return (
@@ -83,7 +83,7 @@ export const FileTree = ({
       <div
         className={cn(
           "rounded-lg border bg-background font-mono text-sm",
-          className
+          className,
         )}
         role="tree"
         {...props}
@@ -157,7 +157,7 @@ export const FileTreeFolder = ({
 
   const folderContextValue = useMemo(
     () => ({ isExpanded, name, path }),
-    [isExpanded, name, path]
+    [isExpanded, name, path],
   );
 
   return (
@@ -172,15 +172,24 @@ export const FileTreeFolder = ({
           <div
             className={cn(
               "flex w-full items-center gap-1 rounded px-2 py-1 text-left transition-colors hover:bg-muted/50",
-              isSelected && "bg-muted"
+              isSelected && "bg-muted",
             )}
           >
-            <CollapsibleTrigger render={<button className="flex shrink-0 cursor-pointer items-center border-none bg-transparent p-0" type="button" />}><ChevronRightIcon
-                                        className={cn(
-                                          "size-4 shrink-0 text-muted-foreground transition-transform",
-                                          isExpanded && "rotate-90"
-                                        )}
-                                      /></CollapsibleTrigger>
+            <CollapsibleTrigger
+              render={
+                <button
+                  className="flex shrink-0 cursor-pointer items-center border-none bg-transparent p-0"
+                  type="button"
+                />
+              }
+            >
+              <ChevronRightIcon
+                className={cn(
+                  "size-4 shrink-0 text-muted-foreground transition-transform",
+                  isExpanded && "rotate-90",
+                )}
+              />
+            </CollapsibleTrigger>
             <button
               className="flex min-w-0 flex-1 cursor-pointer items-center gap-1 border-none bg-transparent p-0 text-left"
               onClick={handleSelect}
@@ -242,7 +251,7 @@ export const FileTreeFile = ({
         onSelect?.(path);
       }
     },
-    [onSelect, path]
+    [onSelect, path],
   );
 
   const fileContextValue = useMemo(() => ({ name, path }), [name, path]);
@@ -253,7 +262,7 @@ export const FileTreeFile = ({
         className={cn(
           "flex cursor-pointer items-center gap-1 rounded px-2 py-1 transition-colors hover:bg-muted/50",
           isSelected && "bg-muted",
-          className
+          className,
         )}
         onClick={handleClick}
         onKeyDown={handleKeyDown}

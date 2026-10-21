@@ -62,7 +62,7 @@ export const useAudioDevices = () => {
 
       const deviceList = await navigator.mediaDevices.enumerateDevices();
       const audioInputs = deviceList.filter(
-        (device) => device.kind === "audioinput"
+        (device) => device.kind === "audioinput",
       );
 
       setDevices(audioInputs);
@@ -98,7 +98,7 @@ export const useAudioDevices = () => {
 
       const deviceList = await navigator.mediaDevices.enumerateDevices();
       const audioInputs = deviceList.filter(
-        (device) => device.kind === "audioinput"
+        (device) => device.kind === "audioinput",
       );
 
       setDevices(audioInputs);
@@ -134,7 +134,7 @@ export const useAudioDevices = () => {
     return () => {
       navigator.mediaDevices.removeEventListener(
         "devicechange",
-        handleDeviceChange
+        handleDeviceChange,
       );
     };
   }, [hasPermission, loadDevicesWithPermission, loadDevicesWithoutPermission]);
@@ -184,6 +184,7 @@ export const MicSelector = ({
     }
   }, [open, hasPermission, loading, loadDevices]);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const contextValue = useMemo(
     () => ({
       data: devices,
@@ -194,7 +195,7 @@ export const MicSelector = ({
       value,
       width,
     }),
-    [devices, onOpenChange, onValueChange, open, setWidth, value, width]
+    [devices, onOpenChange, onValueChange, open, setWidth, value, width],
   );
 
   return (
@@ -235,10 +236,13 @@ export const MicSelectorTrigger = ({
   }, [setWidth]);
 
   return (
-    <PopoverTrigger render={<Button variant="outline" {...props} ref={ref} />}>{children}<ChevronsUpDownIcon
-                className="shrink-0 text-muted-foreground"
-                size={16}
-              /></PopoverTrigger>
+    <PopoverTrigger render={<Button variant="outline" {...props} ref={ref} />}>
+      {children}
+      <ChevronsUpDownIcon
+        className="shrink-0 text-muted-foreground"
+        size={16}
+      />
+    </PopoverTrigger>
   );
 };
 
@@ -307,7 +311,7 @@ export const MicSelectorItem = (props: MicSelectorItemProps) => {
       onValueChange?.(currentValue);
       onOpenChange?.(false);
     },
-    [onValueChange, onOpenChange]
+    [onValueChange, onOpenChange],
   );
 
   return <CommandItem onSelect={handleSelect} {...props} />;
