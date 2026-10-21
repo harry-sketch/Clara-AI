@@ -15,7 +15,7 @@ const RightSidebar = () => {
   const isActive = true;
 
   return (
-    <aside className="flex h-full w-72 flex-col shrink-0 border-l border-zinc-800 z-20 overflow-hidden">
+    <aside className="flex h-full w-56 flex-col shrink-0 border-l border-zinc-800 z-20 overflow-hidden">
       <div className="flex-1 min-h-0 w-full">
         <ScrollArea className="h-full w-full">
           <div className="flex flex-col gap-4 p-4 pb-4">
@@ -36,8 +36,8 @@ const RightSidebar = () => {
                 )}
               >
                 <Image
-                  width={250}
-                  height={250}
+                  width={150}
+                  height={150}
                   src="/logo.webp"
                   alt={`Version ${1}`}
                   className="w-full h-full object-contain"

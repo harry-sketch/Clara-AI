@@ -23,6 +23,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
+      suppressHydrationWarning
       lang="en"
       className={cn(
         "h-full",
@@ -33,7 +34,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         inter.variable,
       )}
     >
-      <body className="min-h-full flex flex-col bg-[#101010]">{children}</body>
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col bg-[#101010]"
+      >
+        {children}
+      </body>
     </html>
   );
 }

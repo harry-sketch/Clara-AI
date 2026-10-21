@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRef, useState } from "react";
 import { Navbar } from "@/components/Header/Navbar";
 import LeftSidebar from "@/components/Sidebar/LeftSidebar";
 import RightSidebar from "@/components/Sidebar/RightSidebar";
@@ -8,7 +9,40 @@ import { Button } from "@/components/ui/button";
 import ChatInput from "../Chat/ChatInput";
 
 const HomeShowcase = () => {
-  const imageSelected = false;
+  const fileRef = useRef<HTMLInputElement | null>(null);
+
+  const [image, setImage] = useState<string>("");
+
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.length) {
+      const file = e.target.files[0];
+
+      if (!file) {
+        console.log("no file found");
+      }
+
+      if (file.type.startsWith("text")) {
+        console.log("Wrong file selected");
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const result = reader.result;
+
+        if (result) {
+          setImage(result as string);
+        }
+      };
+
+      reader.onerror = () => {
+        console.log("Error reading the file. Please try again.");
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="w-full h-dvh flex flex-col overflow-hidden">
@@ -20,7 +54,7 @@ const HomeShowcase = () => {
         <main className="flex-1 flex flex-col min-w-0 relative">
           <div className="flex-1 relative overflow-hidden w-full h-full">
             <div className="w-full h-full flex items-center justify-center p-6 md:p-10">
-              {!imageSelected ? (
+              {!image ? (
                 <div className="text-center space-y-6 max-w-sm z-10">
                   <Image
                     src="/logo.webp"
@@ -35,14 +69,25 @@ const HomeShowcase = () => {
                     </h3>
                     <p className="text-zinc-500 text-sm mt-3 leading-relaxed">
                       Upload an image to unlock the full potential of{" "}
-                      <span className="text-yellow-500 font-medium">
+                      <span className="text-emerald-500 font-medium">
                         Coder&apos;s Banana
                       </span>{" "}
                       AI tools.
                     </p>
                   </div>
+
+                  <input
+                    type="file"
+                    ref={fileRef}
+                    onChange={handleUpload}
+                    accept="image/*"
+                  />
                   <Button
-                    onClick={() => {}}
+                    onClick={() => {
+                      if (fileRef.current) {
+                        fileRef.current?.click();
+                      }
+                    }}
                     className="w-full h-14 bg-emerald-400 hover:bg-emerald-500 text-zinc-950 text-base cursor-pointer font-bold rounded-xl transition-all hover:scale-[1.02]"
                   >
                     Select Image
@@ -50,7 +95,13 @@ const HomeShowcase = () => {
                 </div>
               ) : (
                 <div className="relative w-full h-full flex items-center justify-center">
-                  IMAGE EDITOR COMPONENT
+                  <Image
+                    src={image}
+                    alt="selected-image"
+                    width={500}
+                    height={500}
+                    className="object-contain"
+                  />
                 </div>
               )}
             </div>
