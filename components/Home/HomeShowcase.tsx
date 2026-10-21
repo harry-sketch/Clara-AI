@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef } from "react";
 import Image from "next/image";
+import { useRef } from "react";
+import ChatInput from "@/components/Chat/ChatInput";
 import { Navbar } from "@/components/Header/Navbar";
-import RightSidebar from "@/components/Sidebar/RightSidebar";
 import LeftSidebar from "@/components/Sidebar/LeftSidebar";
+import RightSidebar from "@/components/Sidebar/RightSidebar";
 import { Button } from "@/components/ui/button";
-import ChatInput from "../Chat/ChatInput";
 import { useEditorStore } from "@/store/useEditor.store";
 
 const HomeShowcase = () => {
