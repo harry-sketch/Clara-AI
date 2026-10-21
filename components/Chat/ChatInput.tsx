@@ -1,6 +1,5 @@
 "use client";
 
-import { GlobeIcon } from "lucide-react";
 import { useState } from "react";
 
 import {
@@ -10,20 +9,32 @@ import {
   PromptInputActionMenuContent,
   PromptInputActionMenuTrigger,
   PromptInputBody,
-  PromptInputButton,
   PromptInputFooter,
   PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
 } from "@/components/ai-elements/prompt-input";
 import type { ChatStatus } from "ai";
+import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
 
 import PromptInputAttachmentsDisplay from "@/components/Chat/PromptInputAttachmentsDisplay";
+import { useEditorStore } from "../../store/useEditor.store";
 
 const ChatInput = () => {
   const [status] = useState<ChatStatus>("ready");
 
-  const handleSubmit = () => {};
+  const setUserPrompt = useEditorStore((state) => state.setUserPrompt);
+
+  const handleSubmit = (message: PromptInputMessage) => {
+    const hasText = Boolean(message.text);
+
+    if (!hasText) {
+      console.log("Text not found");
+      return;
+    }
+
+    setUserPrompt(message.text);
+  };
 
   return (
     <div className="size-full">
@@ -36,8 +47,8 @@ const ChatInput = () => {
           <PromptInputTools>
             <PromptInputActionMenu>
               <PromptInputActionMenuTrigger className="cursor-pointer" />
-              <PromptInputActionMenuContent className="bg-zinc-800 text-white flex flex-col items-center justify-center text-center">
-                <PromptInputActionAddAttachments className="flex flex-col items-center justify-center" />
+              <PromptInputActionMenuContent className="bg-zinc-800 text-white flex flex-col items-center justify-center text-center w-48 p-2 hover:bg-none">
+                <PromptInputActionAddAttachments />
               </PromptInputActionMenuContent>
             </PromptInputActionMenu>
           </PromptInputTools>
