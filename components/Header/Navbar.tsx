@@ -19,6 +19,7 @@ export function Navbar() {
             height={150}
             className="object-contain"
             priority
+            loading="eager"
           />
         </Link>
       </div>

@@ -32,7 +32,12 @@ const ChatInput = () => {
       return;
     }
 
-    await sendEditDataToServer(message.text);
+    try {
+      const data = await sendEditDataToServer(message.text);
+      console.log(data.message, data.image);
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
   };
 
   return (

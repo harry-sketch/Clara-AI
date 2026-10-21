@@ -12,7 +12,7 @@ import { useEditorStore } from "@/store/useEditor.store";
 const HomeShowcase = () => {
   const fileRef = useRef<HTMLInputElement | null>(null);
 
-  const { selectedImage, setSelectedImage } = useEditorStore();
+  const { image, setImage } = useEditorStore();
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -33,7 +33,7 @@ const HomeShowcase = () => {
         const result = reader.result;
 
         if (result) {
-          setSelectedImage(result as string);
+          setImage(result as string);
         }
       };
 
@@ -55,7 +55,7 @@ const HomeShowcase = () => {
         <main className="flex-1 flex flex-col min-w-0 relative">
           <div className="flex-1 relative overflow-hidden w-full h-full">
             <div className="w-full h-full flex items-center justify-center p-6 md:p-10">
-              {!selectedImage ? (
+              {!image ? (
                 <div className="text-center space-y-6 max-w-sm z-10">
                   <Image
                     src="/logo.webp"
@@ -63,6 +63,7 @@ const HomeShowcase = () => {
                     height={200}
                     alt="logo"
                     className="object-contain"
+                    loading="eager"
                   />
                   <div>
                     <h3 className="text-2xl font-bold text-zinc-100">
@@ -97,11 +98,12 @@ const HomeShowcase = () => {
               ) : (
                 <div className="relative w-full h-full flex items-center justify-center">
                   <Image
-                    src={selectedImage}
+                    src={image}
                     alt="selected-image"
                     width={500}
                     height={500}
                     className="object-contain"
+                    loading="eager"
                   />
                 </div>
               )}

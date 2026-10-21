@@ -1,23 +1,55 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
+import type { TUserChatRespPayload } from "@/types/index";
 
 interface EditorState {
-  selectedImage: string;
-  setSelectedImage: (image: string) => void;
-  sendEditDataToServer: (message: string) => Promise<void>;
+  image: string;
+  setImage: (image: string) => void;
+  sendEditDataToServer: (message: string) => Promise<TUserChatRespPayload>;
 }
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const useEditorStore = create<EditorState>()(
   devtools((set, get) => ({
-    selectedImage: "",
-    setSelectedImage: (image: string) => {
-      set({ selectedImage: image });
+    image: "",
+    setImage: (image: string) => {
+      set({ image });
     },
 
-    sendEditDataToServer: async (message: string) => {
+    sendEditDataToServer: async (
+      message: string,
+    ): Promise<TUserChatRespPayload> => {
+      if (!API_URL) {
+        throw new Error("Missing Api Url");
+      }
       const state = get();
-      const { selectedImage } = state;
-      console.log({ selectedImage, message });
+      const { image } = state;
+
+      if (!image || !message) {
+        throw new Error("Missing fields");
+      }
+
+      const resp = await fetch(`${API_URL}/edit`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image,
+          message,
+        }),
+      });
+
+      if (!resp.ok) {
+        throw new Error("Error Occured in API");
+      }
+
+      const { payload } = await resp.json();
+
+      const data = payload;
+
+      return data;
     },
   })),
 );
