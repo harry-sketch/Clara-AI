@@ -15,7 +15,7 @@ import {
   ModelSelectorName,
   ModelSelectorTrigger,
 } from "@/components/ai-elements/model-selector";
-import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
+// import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import {
   PromptInput,
   PromptInputActionAddAttachments,
@@ -25,47 +25,21 @@ import {
   PromptInputBody,
   PromptInputButton,
   PromptInputFooter,
-  PromptInputSubmit,
+  // PromptInputSubmit,
   PromptInputTextarea,
   PromptInputTools,
 } from "@/components/ai-elements/prompt-input";
 import { models } from "@/components/Chat/models.data";
 import PromptInputAttachmentsDisplay from "@/components/Chat/PromptInputAttachmentsDisplay";
 
-const SUBMITTING_TIMEOUT = 200;
-const STREAMING_TIMEOUT = 2000;
-
 const ChatInput = () => {
   const [model, setModel] = useState<string>(models[0].id);
 
   const [modelSelectorOpen, setModelSelectorOpen] = useState(false);
 
-  const [status, setStatus] = useState<
-    "submitted" | "streaming" | "ready" | "error"
-  >("ready");
-
   const selectedModelData = models.find((m) => m.id === model);
 
-  const handleSubmit = (message: PromptInputMessage) => {
-    const hasText = Boolean(message.text);
-    const hasAttachments = Boolean(message.files?.length);
-
-    if (!(hasText || hasAttachments)) {
-      return;
-    }
-
-    setStatus("submitted");
-
-    console.log("Submitting message:", message);
-
-    setTimeout(() => {
-      setStatus("streaming");
-    }, SUBMITTING_TIMEOUT);
-
-    setTimeout(() => {
-      setStatus("ready");
-    }, STREAMING_TIMEOUT);
-  };
+  const handleSubmit = () => {};
 
   return (
     <div className="size-full">
@@ -140,7 +114,7 @@ const ChatInput = () => {
               </ModelSelectorContent>
             </ModelSelector>
           </PromptInputTools>
-          <PromptInputSubmit status={status} />
+          {/* <PromptInputSubmit status={status} /> */}
         </PromptInputFooter>
       </PromptInput>
     </div>

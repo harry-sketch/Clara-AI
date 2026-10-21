@@ -1,17 +1,20 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
-import { useRef, useState } from "react";
 import { Navbar } from "@/components/Header/Navbar";
-import LeftSidebar from "@/components/Sidebar/LeftSidebar";
 import RightSidebar from "@/components/Sidebar/RightSidebar";
+import LeftSidebar from "@/components/Sidebar/LeftSidebar";
 import { Button } from "@/components/ui/button";
 import ChatInput from "../Chat/ChatInput";
+import { useEditorStore } from "@/store/useEditor.store";
 
 const HomeShowcase = () => {
   const fileRef = useRef<HTMLInputElement | null>(null);
 
-  const [image, setImage] = useState<string>("");
+  const selectedImage = useEditorStore((state) => state.selectedImage);
+
+  const setSelectedImage = useEditorStore((state) => state.setSelectedImage);
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
@@ -32,7 +35,7 @@ const HomeShowcase = () => {
         const result = reader.result;
 
         if (result) {
-          setImage(result as string);
+          setSelectedImage(result as string);
         }
       };
 
@@ -54,7 +57,7 @@ const HomeShowcase = () => {
         <main className="flex-1 flex flex-col min-w-0 relative">
           <div className="flex-1 relative overflow-hidden w-full h-full">
             <div className="w-full h-full flex items-center justify-center p-6 md:p-10">
-              {!image ? (
+              {!selectedImage ? (
                 <div className="text-center space-y-6 max-w-sm z-10">
                   <Image
                     src="/logo.webp"
@@ -96,7 +99,7 @@ const HomeShowcase = () => {
               ) : (
                 <div className="relative w-full h-full flex items-center justify-center">
                   <Image
-                    src={image}
+                    src={selectedImage}
                     alt="selected-image"
                     width={500}
                     height={500}
