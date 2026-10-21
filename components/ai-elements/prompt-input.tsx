@@ -416,6 +416,7 @@ export type PromptInputActionAddAttachmentsProps = ComponentProps<
 
 export const PromptInputActionAddAttachments = ({
   label = "Add photos or files",
+  className,
   ...props
 }: PromptInputActionAddAttachmentsProps) => {
   const attachments = usePromptInputAttachments();
@@ -433,7 +434,7 @@ export const PromptInputActionAddAttachments = ({
   );
 
   return (
-    <DropdownMenuItem {...props} onSelect={handleSelect}>
+    <DropdownMenuItem {...props} onSelect={handleSelect} className={className}>
       <ImageIcon className="mr-2 size-4" /> {label}
     </DropdownMenuItem>
   );
@@ -1187,7 +1188,7 @@ export const PromptInputActionMenuTrigger = ({
   ...props
 }: PromptInputActionMenuTriggerProps) => (
   <DropdownMenuTrigger
-    render={<PromptInputButton className={className} {...props} />}
+    render={<PromptInputButton className={cn(className)} {...props} />}
   >
     {children ?? <PlusIcon className="size-4" />}
   </DropdownMenuTrigger>
@@ -1258,7 +1259,7 @@ export const PromptInputSubmit = ({
   return (
     <InputGroupButton
       aria-label={isGenerating ? "Stop" : "Submit"}
-      className={cn(className)}
+      className={cn(className, "bg-zinc-800 cursor-pointer")}
       onClick={handleClick}
       size={size}
       type={isGenerating && onStop ? "button" : "submit"}
