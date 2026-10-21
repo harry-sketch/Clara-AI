@@ -16,16 +16,15 @@ import {
 } from "@/components/ai-elements/prompt-input";
 import type { ChatStatus } from "ai";
 import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
-
 import PromptInputAttachmentsDisplay from "@/components/Chat/PromptInputAttachmentsDisplay";
-import { useEditorStore } from "../../store/useEditor.store";
+import { useEditorStore } from "@/store/useEditor.store";
 
 const ChatInput = () => {
   const [status] = useState<ChatStatus>("ready");
 
-  const setUserPrompt = useEditorStore((state) => state.setUserPrompt);
+  const { sendEditDataToServer } = useEditorStore();
 
-  const handleSubmit = (message: PromptInputMessage) => {
+  const handleSubmit = async (message: PromptInputMessage) => {
     const hasText = Boolean(message.text);
 
     if (!hasText) {
@@ -33,7 +32,7 @@ const ChatInput = () => {
       return;
     }
 
-    setUserPrompt(message.text);
+    await sendEditDataToServer(message.text);
   };
 
   return (

@@ -12,9 +12,7 @@ import { useEditorStore } from "@/store/useEditor.store";
 const HomeShowcase = () => {
   const fileRef = useRef<HTMLInputElement | null>(null);
 
-  const selectedImage = useEditorStore((state) => state.selectedImage);
-
-  const setSelectedImage = useEditorStore((state) => state.setSelectedImage);
+  const { selectedImage, setSelectedImage } = useEditorStore();
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
