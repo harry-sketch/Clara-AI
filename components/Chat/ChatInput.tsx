@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-
 import {
   PromptInput,
   PromptInputActionAddAttachments,
@@ -14,13 +13,12 @@ import {
   PromptInputTextarea,
   PromptInputTools,
 } from "@/components/ai-elements/prompt-input";
-import type { ChatStatus } from "ai";
 import type { PromptInputMessage } from "@/components/ai-elements/prompt-input";
 import PromptInputAttachmentsDisplay from "@/components/Chat/PromptInputAttachmentsDisplay";
 import { useEditorStore } from "@/store/useEditor.store";
 
 const ChatInput = () => {
-  const [status] = useState<ChatStatus>("ready");
+  const [isLoading, setIsLoading] = useState(false);
 
   const { sendEditDataToServer } = useEditorStore();
 
@@ -32,9 +30,12 @@ const ChatInput = () => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const data = await sendEditDataToServer(message.text);
       console.log(data.message, data.image);
+      setIsLoading(false);
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -56,7 +57,7 @@ const ChatInput = () => {
               </PromptInputActionMenuContent>
             </PromptInputActionMenu>
           </PromptInputTools>
-          <PromptInputSubmit status={status} />
+          <PromptInputSubmit status={isLoading ? "submitted" : "ready"} />
         </PromptInputFooter>
       </PromptInput>
     </div>

@@ -91,7 +91,6 @@ const renderAttachmentImage = (
   isGrid: boolean,
 ) =>
   isGrid ? (
-    // biome-ignore lint/performance/noImgElement: false positive
     <img
       alt={filename || "Image"}
       className="size-full object-cover"
@@ -100,7 +99,6 @@ const renderAttachmentImage = (
       width={96}
     />
   ) : (
-    // biome-ignore lint/performance/noImgElement: false positive
     <img
       alt={filename || "Image"}
       className="size-full rounded object-cover"

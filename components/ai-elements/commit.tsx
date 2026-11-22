@@ -197,7 +197,6 @@ export const CommitActions = ({
   children,
   ...props
 }: CommitActionsProps) => (
-  // biome-ignore lint/a11y/useSemanticElements: <explanation>
   <div
     className={cn("flex items-center gap-1", className)}
     onClick={handleActionsClick}
