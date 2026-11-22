@@ -7,6 +7,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { memo } from "react";
 
 interface GridItemProps {
   // Option A: Icon Mode
@@ -136,4 +137,6 @@ const GridItem = ({
   );
 };
 
-export default GridItem;
+export default memo(GridItem, (prev, next) => {
+  return prev.label === next.label;
+});

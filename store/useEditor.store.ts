@@ -14,7 +14,10 @@ export const useEditorStore = create<EditorState>()(
   devtools((set, get) => ({
     image: "",
     setImage: (image: string) => {
-      set({ image });
+      set((state) => {
+        state.image = image;
+        return state;
+      });
     },
 
     sendEditDataToServer: async (
