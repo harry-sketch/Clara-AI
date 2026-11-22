@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  serverExternalPackages: ["@google/genai"],
   turbopack: {
     rules: {
       "*.css": {

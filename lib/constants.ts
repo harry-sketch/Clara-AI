@@ -103,3 +103,5 @@ export const filters = [
     image: "/filters/oilpainting.png",
   },
 ];
+
+export const DATA_URL_REGEX = /^data:([\w.+-]+\/[\w.+-]+);base64,/;

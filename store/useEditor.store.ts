@@ -45,9 +45,7 @@ export const useEditorStore = create<EditorState>()(
         throw new Error("Error Occured in API");
       }
 
-      const { payload } = await resp.json();
-
-      const data = payload;
+      const data = await resp.json();
 
       return data;
     },
