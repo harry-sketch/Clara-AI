@@ -4,7 +4,7 @@ import {
   type TUserChatRespPayload,
 } from "@/types/index";
 import { openai_model } from "@/model/model";
-import { changeImageToBaseUrl, getMimeType } from "../../../lib/utils";
+import { changeImageToBaseUrl, getMimeType } from "@/lib/utils";
 
 export async function POST(req: Request) {
   try {

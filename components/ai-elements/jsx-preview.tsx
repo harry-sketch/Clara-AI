@@ -157,7 +157,6 @@ export const JSXPreview = memo(
       [jsx, isStreaming],
     );
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     const contextValue = useMemo(
       () => ({
         bindings,
@@ -170,16 +169,7 @@ export const JSXPreview = memo(
         setError,
         setLastGoodJsx,
       }),
-      [
-        bindings,
-        components,
-        error,
-        isStreaming,
-        jsx,
-        onError,
-        processedJsx,
-        setError,
-      ],
+      [bindings, components, error, isStreaming, jsx, onError, processedJsx],
     );
 
     return (
@@ -212,11 +202,10 @@ export const JSXPreviewContent = memo(
     const [hadError, setHadError] = useState(false);
 
     // Reset error tracking when jsx changes
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
     useEffect(() => {
       errorReportedRef.current = null;
       setHadError(false);
-    }, [processedJsx]);
+    }, []);
 
     const handleError = useCallback(
       (err: Error) => {

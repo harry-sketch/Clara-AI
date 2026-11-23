@@ -184,7 +184,6 @@ export const MicSelector = ({
     }
   }, [open, hasPermission, loading, loadDevices]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   const contextValue = useMemo(
     () => ({
       data: devices,
@@ -195,7 +194,7 @@ export const MicSelector = ({
       value,
       width,
     }),
-    [devices, onOpenChange, onValueChange, open, setWidth, value, width],
+    [devices, onOpenChange, onValueChange, open, value, width],
   );
 
   return (

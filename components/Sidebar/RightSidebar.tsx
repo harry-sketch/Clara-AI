@@ -10,55 +10,57 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { useEditorStore } from "@/store/useEditor.store";
 
 const RightSidebar = () => {
-  const isActive = true;
+  const { image } = useEditorStore();
 
   return (
     <aside className="flex h-full w-56 flex-col shrink-0 border-l border-zinc-800 z-20 overflow-hidden">
       <div className="flex-1 min-h-0 w-full">
         <ScrollArea className="h-full w-full">
           <div className="flex flex-col gap-4 p-4 pb-4">
-            {/* conditional reder to this if not images in history */}
-            {/* <div className="text-center py-10">
-              <span className="text-xs text-zinc-600">No history yet</span>
-            </div> */}
-
-            <div className="relative group">
-              <button
-                type="button"
-                onClick={() => {}}
-                className={cn(
-                  "relative w-full aspect-square rounded-xl overflow-hidden border transition-all duration-200",
-                  isActive
-                    ? "border-emerald-400"
-                    : "border-zinc-800 hover:border-zinc-600 opacity-60 hover:opacity-100",
-                )}
-              >
-                <Image
-                  width={150}
-                  height={150}
-                  src="/logo.webp"
-                  alt={`Version ${1}`}
-                  className="w-full h-full object-contain"
-                />
-
-                {isActive && (
-                  <div className="absolute inset-0 bg-yellow-500/5 pointer-events-none" />
-                )}
-              </button>
-
-              <div
-                className={cn(
-                  "absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full text-[10px] font-bold shadow-md z-10 pointer-events-none",
-                  isActive
-                    ? "bg-emerald-400 text-zinc-950"
-                    : "bg-zinc-800 text-zinc-400 border border-zinc-700",
-                )}
-              >
-                1
+            {!image ? (
+              <div className="text-center py-10">
+                <span className="text-xs text-zinc-200">No history yet</span>
               </div>
-            </div>
+            ) : (
+              <div className="relative group">
+                <button
+                  type="button"
+                  onClick={() => {}}
+                  className={cn(
+                    "relative w-full aspect-square rounded-xl overflow-hidden border transition-all duration-200",
+                    image.length === 0
+                      ? "border-emerald-400"
+                      : "border-zinc-800 hover:border-zinc-600 opacity-60 hover:opacity-100",
+                  )}
+                >
+                  <Image
+                    width={150}
+                    height={150}
+                    src={image ? image : "/logo.webp"}
+                    alt={`Version ${1}`}
+                    className="w-full h-full object-contain"
+                  />
+
+                  {image.length === 0 && (
+                    <div className="absolute inset-0 bg-yellow-500/5 pointer-events-none" />
+                  )}
+                </button>
+
+                <div
+                  className={cn(
+                    "absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full text-[10px] font-bold shadow-md z-10 pointer-events-none",
+                    image.length === 0
+                      ? "bg-emerald-400 text-zinc-950"
+                      : "bg-zinc-800 text-zinc-400 border border-zinc-700",
+                  )}
+                >
+                  1
+                </div>
+              </div>
+            )}
           </div>
         </ScrollArea>
       </div>

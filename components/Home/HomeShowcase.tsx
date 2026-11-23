@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ChatInput from "@/components/Chat/ChatInput";
 import { Navbar } from "@/components/Header/Navbar";
 import LeftSidebar from "@/components/Sidebar/LeftSidebar";
@@ -9,8 +9,20 @@ import RightSidebar from "@/components/Sidebar/RightSidebar";
 import { Button } from "@/components/ui/button";
 import { useEditorStore } from "@/store/useEditor.store";
 
+type TDimensionType = {
+  width: number | null;
+  height: number | null;
+};
+
 const HomeShowcase = () => {
   const fileRef = useRef<HTMLInputElement | null>(null);
+
+  const [elapsed, setElapsed] = useState(0);
+
+  const [dimensions, setDimensions] = useState<TDimensionType>({
+    width: null,
+    height: null,
+  });
 
   const { image, setImage } = useEditorStore();
 
@@ -22,9 +34,8 @@ const HomeShowcase = () => {
         console.log("no file found");
       }
 
-      if (file.type.startsWith("text")) {
+      if (!file.type.startsWith("image/")) {
         console.log("Wrong file selected");
-        return;
       }
 
       const reader = new FileReader();
@@ -44,6 +55,30 @@ const HomeShowcase = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    if (!image) {
+      setDimensions({ height: null, width: null });
+      return;
+    }
+
+    const img = new window.Image();
+
+    img.onload = () => {
+      setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+    };
+
+    img.src = image;
+  }, [image]);
+
+  useEffect(() => {
+    if (!image) return;
+
+    setElapsed(0);
+    setInterval(() => {
+      setElapsed((s) => s + 1);
+    }, 1000);
+  }, [image]);
 
   return (
     <div className="w-full h-dvh flex flex-col overflow-hidden">
@@ -72,9 +107,8 @@ const HomeShowcase = () => {
                     <p className="text-zinc-500 text-sm mt-3 leading-relaxed">
                       Upload an image to unlock the full potential of{" "}
                       <span className="text-emerald-500 font-medium">
-                        Coder&apos;s Banana
-                      </span>{" "}
-                      AI tools.
+                        Clara.Ai
+                      </span>
                     </p>
                   </div>
 
@@ -82,6 +116,7 @@ const HomeShowcase = () => {
                     type="file"
                     ref={fileRef}
                     onChange={handleUpload}
+                    className="hidden"
                     accept="image/*"
                   />
                   <Button
@@ -105,6 +140,18 @@ const HomeShowcase = () => {
                     className="object-contain"
                     loading="eager"
                   />
+
+                  {dimensions && (
+                    <p className="absolute bottom-2 right-2 text-xs text-zinc-400">
+                      {dimensions.width} × {dimensions.height}
+                    </p>
+                  )}
+
+                  {elapsed && (
+                    <p className="absolute bottom-2 left-2 text-xs text-zinc-200">
+                      Editing for {elapsed}s
+                    </p>
+                  )}
                 </div>
               )}
             </div>
