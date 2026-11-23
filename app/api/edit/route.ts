@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   try {
     const { image, message } = (await req.json()) as TUserChatRespPayload;
 
-    if (!image || !message) {
+    if (!image && !message) {
       return NextResponse.json(
         {
           message: "missing fields",
